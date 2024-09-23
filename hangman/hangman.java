@@ -12,6 +12,7 @@ public class hangman{
         String[] letters =  {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", 
                             "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", 
                             "u", "v", "w", "x", "y", "z"};
+        boolean goodGuess = false;
         
         
         
@@ -62,11 +63,26 @@ public class hangman{
 
         while (wordBuilder.equals(word) == false){
 
-            //Asking the player to guess a letter
-            System.out.println("\nPlease guess a letter of the word");
+            while (goodGuess == false){
+                //Asking the player to guess a letter
+                System.out.println("\nPlease guess a letter of the word");
 
-            //Gathering the players guess
-            guess = input.nextLine();
+                //Gathering the players guess
+                guess = input.nextLine();
+                
+
+            for (int i = 0; i < letters.length; i++){
+                if (guess.equals(letters[i])){
+                    goodGuess = true;
+                    letters[i] = "<>";
+                }
+            }
+            if (goodGuess == false){
+                System.out.println("You have already guessed that letter or you need to guess only one letter\nplease guess a different letter");
+            }
+            }
+
+            
 
             
             //Showing the player the word that they have guessed so far
@@ -75,14 +91,23 @@ public class hangman{
 
             //Showing the player the starting drawing of hangman
             System.out.println(outPutt.defualtOutPut);
+            goodGuess = false;
+            if (outPutt.Lose == true){
+
+                System.out.println("You Lose! The word was: " + word);
+                break;
+            }
 
 
 
         }
         
-
-        
+        input.close();
+        if (wordBuilder.equals(word)){
+            System.out.println("You Win");
+        }
         
 
     }
+    
 }
