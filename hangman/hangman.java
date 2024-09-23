@@ -7,6 +7,13 @@ public class hangman{
         output outPutt = new output();
         Scanner input = new Scanner(System.in);
         String word;
+        String wordBuilder = "";
+        String guess = "";
+        String[] letters =  {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", 
+                            "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", 
+                            "u", "v", "w", "x", "y", "z"};
+        
+        
         
         //Array of words the the computer can choose from for hangman
         String[] words = {"apple", "banana", "cherry", "date", "audio", "video", "music", "movie", "image", "picture", "computer", "keyboard", "mouse", "monitor", "printer", "scanner", "software", "hardware", "network", "internet", "website", "database", "server", "client", "program", "application", "system", "operating", "windows", "linux", "macintosh", "android", "iphone", "smartphone", "tablet", "laptop", "desktop", "notebook", "server", "cloud", "storage", "memory", "processor", "motherboard", "circuit", "chip", "device", "technology", "science", "engineering", "mathematics", "physics", "chemistry", "biology", "geology", "astronomy", "meteorology", "environment", "ecology", "geography", "history", "economics", "politics", "sociology", "psychology", "philosophy", "religion", "literature", "language", "grammar", "vocabulary", "writing", "reading", "speaking", "listening", "learning", "teaching", "education", "school", "college", "university", "institute", "academy", "library", "museum", "gallery", "theater", "cinema", "concert", "festival", "exhibition", "conference", "seminar", "workshop", "meeting", "discussion", "conversation", "dialogue", "debate", "argument", "agreement", "disagreement", "conflict", "resolution", "compromise", "negotiation", "mediation", "arbitration"};
@@ -38,19 +45,40 @@ public class hangman{
             word = words[index];
         }
 
+        //Creating a string of underscores that represent the word that the user will see
+        for (int i = 0; i < word.length(); i++){
+            wordBuilder += "_";
+        }
 
+        
 
+        
         //Showing the player the starting drawing of hangman
         System.out.println(outPutt.defualtOutPut);
 
-        //Showing the blank word to the player 
-        System.out.print("Here is the word:");
-        outPutt.showBlankWord(word);
+        //Showing the player the word that they have guessed so far
+        System.out.println(outPutt.showWordBuilder(guess, word, wordBuilder));
 
-        //Asking the player to guess a letter
-        System.out.println("\nPlease guess a letter of the word");
 
-        String guess = input.nextLine();
+        while (wordBuilder.equals(word) == false){
+
+            //Asking the player to guess a letter
+            System.out.println("\nPlease guess a letter of the word");
+
+            //Gathering the players guess
+            guess = input.nextLine();
+
+            
+            //Showing the player the word that they have guessed so far
+            wordBuilder = outPutt.showWordBuilder(guess, word, wordBuilder);
+            System.out.println("Here is what you have guessed of the word: "+ wordBuilder);
+
+            //Showing the player the starting drawing of hangman
+            System.out.println(outPutt.defualtOutPut);
+
+
+
+        }
         
 
         

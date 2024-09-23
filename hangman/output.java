@@ -1,7 +1,9 @@
+import java.util.ArrayList;
 public class output {
     public int numWrong;
     public String defualtOutPut;
     public int wordLength;
+    public Boolean Lose = false;
 
     public output(){
         numWrong = 0;
@@ -222,6 +224,7 @@ public class output {
                                 " |                       \n" + 
                                 " |                       \n" + 
                                 " |___________________      ";
+                Lose = true;
                 break;
 
     
@@ -232,13 +235,43 @@ public class output {
     
     public void wrongGuess(){
         numWrong++;
+        System.out.println(numWrong);
         updateOutput();
     }
-    public void showBlankWord(String str){
-        wordLength = str.length();
-        for (int i = 0; i < wordLength; i++){
-            System.out.print("_");
+    public String showWordBuilder(String guess, String word, String wordBuilder){
+        //creating a string array of wordbuilder to help with replacing the underscores with the correct letter
+        String[] wordBuilderArray = wordBuilder.split("");
+        ArrayList<Integer> indicies = new ArrayList<Integer>();
+
+        //iterating through the target word to see if the players guess is in it 
+        if (guess.equals("")){
+            return wordBuilder;
         }
+        for (int i = 0; i < word.length(); i++){
+
+            if (word.charAt(i) == guess.charAt(0)){
+                indicies.add(i);
+
+            
+                //replacing the underscores with the correct letter
+               for (int j = 0; j < indicies.size(); j++){
+                    
+                    wordBuilderArray[indicies.get(j)] = guess;
+                   }
+
+        }
+        }
+
+        //if the guess is not in the word, the player gets a wrong guess and the original wordbuilder is returned
+        if (indicies.size() == 0){
+            System.out.println("Incorrect guess!");
+            wrongGuess();
+            return wordBuilder;
+        }
+        System.out.println("Correct guess!");
+        return String.join("", wordBuilderArray);
+
     }
+     
     
 }
